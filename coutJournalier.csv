@@ -1,0 +1,14 @@
+Charges variables;5 ------> 8 CV : Partner & camionnette;"9 -----> 10 CV Camionnette & Fourgon 
+";"11 ------> 14 CV Camionnette 2
+";"15 CV et + Poids lourds
+"
+Crédit Véhicule   ;71.34 dt/j;142.68 dt/j;142.68 dt/j;214.02 dt/j
+assurances    ;"1000 dt/an=  /250 = 4 dt/j
+";13.4 dt/j;13.68 dt/j;20.26 dt/j
+entretiens ;250 dt/mois = *12/250 =12 dt/j;12 dt/j;24 dt/j;48 dt/j
+Taxe;"180 dt/an  = /250 =0.72 dt/j
+";1.71 dt/j;2.56 dt/j;7 dt/j
+Cout Totale/jour (Cas véhicule en crédit);88.06 dt;169.79 dt ;182.92 dt;289.28 dt
+"Cout Totale/jour
+(Cas véhicule en comptant) 
+";56.72 dt;107.11 dt;120.24 dt ;195.26 dt 
