@@ -22,18 +22,18 @@ class Marchandise(BaseModel):
 store_Marchandise = []
 
 
-@app.post("/marchandise/")
+@app.post("/transporter/", status_code=201)
 def add_marchandise(marchandise: Marchandise):
     store_Marchandise.append(marchandise)
     return marchandise
 
 
-@app.get("/marchandise/", response_model=list[Marchandise])
+@app.get("/transporter/", response_model=list[Marchandise])
 def read_all_marchandise():
     return store_Marchandise
 
 
-@app.get("/marchandise/{id_marchandise}")
+@app.get("/transporter/{id_marchandise}")
 def read_marchandise(id_marchandise: int):
     try:
         return store_Marchandise[id_marchandise]
@@ -41,7 +41,7 @@ def read_marchandise(id_marchandise: int):
         raise HTTPException(status_code=404, detail="Marchandise n'existe pas")
 
 
-@app.put("/marchandise/{id_marchandise}")
+@app.put("/transporter/{id_marchandise}")
 def update_marchandise(id_marchandise: int, new_marchandise: Marchandise):
     try:
         store_Marchandise[id_marchandise] = new_marchandise
@@ -57,12 +57,12 @@ class Categorie_vihecule(str, Enum):
     porteur = "Porteur"
 
 
-@app.post("/Vihecule/{vihecule}/")
+@app.post("/transporter/{vihecule}/")
 def add_Vihecule(vihecule: Categorie_vihecule):
     return {"Hello": vihecule.value}
 
 
-@app.get("/Vihecule/{vihecule}/")
+@app.get("/transporter/{vihecule}/")
 def read_all_categorie_vihecule(vihecule: Categorie_vihecule):
     if (vihecule == Categorie_vihecule.utilitaire):
         return {"message": "votre vihecule est utilitaire"}
@@ -76,16 +76,16 @@ def read_all_categorie_vihecule(vihecule: Categorie_vihecule):
 """""
 store_vihecule = []
 
-@app.post("/vihecule/")
+@app.post("/transporter/")
 def add_categorie_vihecule(categorie_vihecule: Categorie_vihecule):
     store_vihecule.append(categorie_vihecule)
     return categorie_vihecule
 
-@app.get("/vihecule/", response_model=list[Categorie_vihecule])
+@app.get("/transporter/", response_model=list[Categorie_vihecule])
 def read_all_categorie_vihecule():
     return store_vihecule
 
-@app.get("/vihecule/{id_vihecule}")
+@app.get("/transporter/{id_vihecule}")
 def read_categorie_vihecule(id_vihecule: int):
     try:
         return store_vihecule[id_vihecule]
@@ -94,7 +94,7 @@ def read_categorie_vihecule(id_vihecule: int):
 
 
 
-@app.put("/vihecule/{id_vihecule}")
+@app.put("/transporter/{id_vihecule}")
 def update_ategorie_vihecule(id_vihecule: int, new_vihecule: Categorie_vihecule):
     try:
         store_Marchandise[id_vihecule] = new_vihecule
@@ -114,19 +114,19 @@ class Transport(BaseModel):
 store_Transport = []
 
 
-@app.post("/Transport/")
+@app.post("/transporter")
 def add_transport(transport: Transport):
     store_Transport.append(transport)
 
     return transport
 
 
-@app.get("/Transport/", response_model=list[Transport])
+@app.get("/transporter", response_model=list[Transport])
 def read_all_transport():
     return (store_Transport)
 
 
-@app.get("/Transport/{id_transport}")
+@app.get("/transporter/{id_transport}", status_code=202)
 def read_transport(id_transport: int):
     try:
         return store_Transport[id_transport]
@@ -134,7 +134,7 @@ def read_transport(id_transport: int):
         raise HTTPException(status_code=404, detail="Transport n'existe pas")
 
 
-@app.put("/Transport/{id_transport}")
+@app.put("/transporter/{id_transport}")
 def update_transport(id_transport: int, new_transport: Transport):
     try:
         store_Transport[id_transport] = new_transport

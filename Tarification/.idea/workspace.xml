@@ -18,13 +18,20 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="Workspace" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="29FZDVRH99CfuRPtVfu7FwlAtcN" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -34,7 +41,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Desktop/WASSALI/web_scrapping/image-downloader-main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/AppData/Local/Programs/Python/Python310&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
@@ -71,20 +78,28 @@
       <option name="presentableId" value="Default" />
       <updated>1652710682954</updated>
       <workItem from="1652710684581" duration="1752000" />
-      <workItem from="1653221903576" duration="1199000" />
-      <workItem from="1653306543038" duration="7023000" />
-      <workItem from="1653377696482" duration="1813000" />
-      <workItem from="1653426804717" duration="591000" />
-      <workItem from="1653463865356" duration="8017000" />
-      <workItem from="1653511585834" duration="2239000" />
-      <workItem from="1653514393131" duration="3721000" />
-      <workItem from="1653549129659" duration="5120000" />
-      <workItem from="1653580842302" duration="2367000" />
-      <workItem from="1653595322760" duration="1622000" />
+      <workItem from="1652778902308" duration="9925000" />
+      <workItem from="1652817979967" duration="1742000" />
+      <workItem from="1652876368032" duration="2240000" />
+      <workItem from="1652882549468" duration="3480000" />
+      <workItem from="1652895813467" duration="373000" />
+      <workItem from="1652946286887" duration="6807000" />
+      <workItem from="1653030825667" duration="3656000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
