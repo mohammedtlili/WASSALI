@@ -1,20 +1,32 @@
 from typing import Union
 from fastapi.encoders import jsonable_encoder
+# from pydantic import Optional
+from typing import Optional
 
 import uvicorn
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel
 from enum import Enum
 from fastapi import FastAPI, Body
 
-# from pydantic import Optional
-from typing import Optional
+import models
+from database import engine, SessionLocal
+from sqlalchemy.orm import Session
+
 
 app = FastAPI()
 
+models.Base.metadata.create_all(bind=engine)
+
+def get_db():
+    try:
+        db = SessionLocal()
+        yield db
+    finally:
+        db.close()
+
 
 class Marchandise(BaseModel):
-    id_marchandise: int
     nbre_objet: int
     label: str
 
@@ -23,14 +35,20 @@ store_Marchandise = []
 
 
 @app.post("/transporter/", status_code=201)
-def add_marchandise(marchandise: Marchandise):
-    store_Marchandise.append(marchandise)
+def add_marchandise(marchandise: Marchandise, db: Session = Depends(get_db)):
+
+    marchandise_model = models.Marchandise()
+    marchandise_model.nbre_objet = marchandise.nbre_objet
+    marchandise_model.label = marchandise.label
+
+    db.add(marchandise_model)
+    db.commit()
     return marchandise
 
 
-@app.get("/transporter/", response_model=list[Marchandise])
-def read_all_marchandise():
-    return store_Marchandise
+@app.get("/transporter/")
+def read_all_marchandise(db: Session = Depends(get_db)):
+    return db.query(models.Marchandise).all()
 
 
 @app.get("/transporter/{id_marchandise}")
@@ -42,15 +60,25 @@ def read_marchandise(id_marchandise: int):
 
 
 @app.put("/transporter/{id_marchandise}")
-def update_marchandise(id_marchandise: int, new_marchandise: Marchandise):
-    try:
-        store_Marchandise[id_marchandise] = new_marchandise
-        return store_Marchandise[id_marchandise]
-    except:
-        raise HTTPException(status_code=404, detail="Marchandise n'existe pas")
+def update_marchandise(id_marchandise: int, marchandise: Marchandise, db: Session = Depends(get_db)):
+    marchandise_model = db.query(models.Marchandise).filter(models.Marchandise.id == id_marchandise).first()
 
+    if marchandise_model is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"ID {id_marchandise} : Does not exist"
+        )
+
+
+    marchandise_model.nbre_objet = marchandise.nbre_objet
+    marchandise_model.label = marchandise.label
+
+    db.add(marchandise_model)
+    db.commit()
+    return marchandise
 
 class Categorie_vihecule(str, Enum):
+
     utilitaire = "Utilitaire"
     camionnette = "Camionnette"
     fourgon = "Fourgon"
@@ -149,4 +177,4 @@ def read_root():
 
 
 if __name__ == "__main__":
-    uvicorn.run("Nbre_Klm.py: app")
+    uvicorn.run("tariF.py: app")
