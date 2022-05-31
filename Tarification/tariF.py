@@ -1,17 +1,17 @@
 from typing import Union
 from fastapi.encoders import jsonable_encoder
-# from pydantic import Optional
+#from pydantic import Optional
 from typing import Optional
-
-import uvicorn
-from fastapi import FastAPI, HTTPException, Depends
-from pydantic import BaseModel
 from enum import Enum
-from fastapi import FastAPI, Body
 
 import models
+import uvicorn
+from fastapi import FastAPI, HTTPException, Depends, Body
+from pydantic import BaseModel
+from models import *
 from database import engine, SessionLocal
 from sqlalchemy.orm import Session
+from . import models, schemas
 
 
 app = FastAPI()
@@ -26,9 +26,9 @@ def get_db():
         db.close()
 
 
-class Marchandise(BaseModel):
-    nbre_objet: int
-    label: str
+#****************************************************************************************
+
+
 
 
 store_Marchandise = []
@@ -36,7 +36,6 @@ store_Marchandise = []
 
 @app.post("/transporter/", status_code=201)
 def add_marchandise(marchandise: Marchandise, db: Session = Depends(get_db)):
-
     marchandise_model = models.Marchandise()
     marchandise_model.nbre_objet = marchandise.nbre_objet
     marchandise_model.label = marchandise.label
@@ -52,7 +51,7 @@ def read_all_marchandise(db: Session = Depends(get_db)):
 
 
 @app.get("/transporter/{id_marchandise}")
-def read_marchandise(id_marchandise: int):
+def read_marchandise_by_id(id_marchandise: int):
     try:
         return store_Marchandise[id_marchandise]
     except:
@@ -60,7 +59,7 @@ def read_marchandise(id_marchandise: int):
 
 
 @app.put("/transporter/{id_marchandise}")
-def update_marchandise(id_marchandise: int, marchandise: Marchandise, db: Session = Depends(get_db)):
+def update_marchandise_by_id(id_marchandise: int, marchandise: Marchandise, db: Session = Depends(get_db)):
     marchandise_model = db.query(models.Marchandise).filter(models.Marchandise.id == id_marchandise).first()
 
     if marchandise_model is None:
@@ -69,7 +68,7 @@ def update_marchandise(id_marchandise: int, marchandise: Marchandise, db: Sessio
             detail=f"ID {id_marchandise} : Does not exist"
         )
 
-
+    marchandise_model = models.Marchandise()
     marchandise_model.nbre_objet = marchandise.nbre_objet
     marchandise_model.label = marchandise.label
 
@@ -77,12 +76,10 @@ def update_marchandise(id_marchandise: int, marchandise: Marchandise, db: Sessio
     db.commit()
     return marchandise
 
-class Categorie_vihecule(str, Enum):
 
-    utilitaire = "Utilitaire"
-    camionnette = "Camionnette"
-    fourgon = "Fourgon"
-    porteur = "Porteur"
+
+#****************************************************************************************************
+
 
 
 @app.post("/transporter/{vihecule}/")
@@ -101,7 +98,7 @@ def read_all_categorie_vihecule(vihecule: Categorie_vihecule):
     return {"message": "votre vihecule est porteur"}
 
 
-"""""
+""""
 store_vihecule = []
 
 @app.post("/transporter/")
@@ -132,8 +129,9 @@ def update_ategorie_vihecule(id_vihecule: int, new_vihecule: Categorie_vihecule)
 """
 
 
+
+#**************************************************************************************************
 class Transport(BaseModel):
-    id_transport: int
     Nombre_km: float
     temps_service: int
     prix: float
@@ -142,20 +140,32 @@ class Transport(BaseModel):
 store_Transport = []
 
 
-@app.post("/transporter")
-def add_transport(transport: Transport):
-    store_Transport.append(transport)
 
+
+@app.post("/transporter/transport/")
+def add_transport(transport: Transport, db: Session = Depends(get_db)):
+    transport_model = models.Transport()
+    transport_model.Nombre_km = transport.Nombre_km
+    transport_model.temps_service = transport.temps_service
+
+    db.add(transport_model)
+    db.commit()
     return transport
 
+@app.get("/transporter/transports/")
+def calcul_prix(transport: Transport, db: Session = Depends(get_db)):
+    #transport.prix = transport.Nombre_km * 10
+    return db(models.transport.prix) * 10
 
-@app.get("/transporter", response_model=list[Transport])
-def read_all_transport():
-    return (store_Transport)
+
+
+@app.get("/transporter/transport/")
+def read_all_transport(db: Session = Depends(get_db)):
+    return db.query(models.Transport).all()
 
 
 @app.get("/transporter/{id_transport}", status_code=202)
-def read_transport(id_transport: int):
+def read_transport_by_id(id_transport: int):
     try:
         return store_Transport[id_transport]
     except:
@@ -163,14 +173,14 @@ def read_transport(id_transport: int):
 
 
 @app.put("/transporter/{id_transport}")
-def update_transport(id_transport: int, new_transport: Transport):
+def update_transport_by_id(id_transport: int, new_transport: Transport):
     try:
         store_Transport[id_transport] = new_transport
         return Transport[id_transport]
     except:
         raise HTTPException(status_code=404, detail="Transport n'existe pas")
 
-
+#******************************************************************************************
 @app.get("/")
 def read_root():
     return {"application de tarification": "phase de test "}
