@@ -4,14 +4,14 @@ from fastapi.encoders import jsonable_encoder
 from typing import Optional
 from enum import Enum
 
-import models
+import models, schemas
 import uvicorn
 from fastapi import FastAPI, HTTPException, Depends, Body
 from pydantic import BaseModel
 from models import *
 from database import engine, SessionLocal
 from sqlalchemy.orm import Session
-from . import models, schemas
+
 
 
 app = FastAPI()
@@ -50,10 +50,12 @@ def read_all_marchandise(db: Session = Depends(get_db)):
     return db.query(models.Marchandise).all()
 
 
+
 @app.get("/transporter/{id_marchandise}")
-def read_marchandise_by_id(id_marchandise: int):
+def read_marchandise_by_id(db: Session, id_marchandise: int):
     try:
-        return store_Marchandise[id_marchandise]
+        return db.query(models.Marchandise).filter(models.Marchandise.id == id_marchandise).first()
+
     except:
         raise HTTPException(status_code=404, detail="Marchandise n'existe pas")
 
