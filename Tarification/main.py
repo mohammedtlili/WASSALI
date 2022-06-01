@@ -4,20 +4,23 @@ from fastapi.encoders import jsonable_encoder
 from typing import Optional
 from enum import Enum
 
-import models, schemas
 import uvicorn
 from fastapi import FastAPI, HTTPException, Depends, Body
 from pydantic import BaseModel
-from models import *
+
+from models import*
+import crud, models, schemas
+
 from database import engine, SessionLocal
 from sqlalchemy.orm import Session
+models.Base.metadata.create_all(bind=engine)
 
 
 
 app = FastAPI()
 
-models.Base.metadata.create_all(bind=engine)
 
+# Dependency
 def get_db():
     try:
         db = SessionLocal()
@@ -31,18 +34,13 @@ def get_db():
 
 
 
-store_Marchandise = []
 
-
-@app.post("/transporter/", status_code=201)
-def add_marchandise(marchandise: Marchandise, db: Session = Depends(get_db)):
-    marchandise_model = models.Marchandise()
-    marchandise_model.nbre_objet = marchandise.nbre_objet
-    marchandise_model.label = marchandise.label
-
-    db.add(marchandise_model)
-    db.commit()
-    return marchandise
+@app.post("/transporter/", response_model=schemas.Marchandise)
+def create_marchandise(marchandise: schemas.MarchandiseCreate, db: Session = Depends(get_db)):
+    db_marchandise = crud.get_marchandise(db, nbre_objet=marchandise.nbre_objet, label=marchandise.label)
+    if db_marchandise:
+        raise  HTTPException(status_code=400, detail="verifier les infos ")
+    return crud.create_marchandise(db=db, marchandise=marchandise)
 
 
 @app.get("/transporter/")
@@ -59,7 +57,7 @@ def read_marchandise_by_id(db: Session, id_marchandise: int):
     except:
         raise HTTPException(status_code=404, detail="Marchandise n'existe pas")
 
-
+"""
 @app.put("/transporter/{id_marchandise}")
 def update_marchandise_by_id(id_marchandise: int, marchandise: Marchandise, db: Session = Depends(get_db)):
     marchandise_model = db.query(models.Marchandise).filter(models.Marchandise.id == id_marchandise).first()
@@ -100,7 +98,7 @@ def read_all_categorie_vihecule(vihecule: Categorie_vihecule):
     return {"message": "votre vihecule est porteur"}
 
 
-""""
+
 store_vihecule = []
 
 @app.post("/transporter/")
@@ -128,7 +126,7 @@ def update_ategorie_vihecule(id_vihecule: int, new_vihecule: Categorie_vihecule)
         return store_vihecule[id_vihecule]
     except:
         raise HTTPException(status_code=404, detail="Categorie vihecule n'existe pas")
-"""
+
 
 
 
@@ -182,6 +180,7 @@ def update_transport_by_id(id_transport: int, new_transport: Transport):
     except:
         raise HTTPException(status_code=404, detail="Transport n'existe pas")
 
+"""
 #******************************************************************************************
 @app.get("/")
 def read_root():
@@ -189,4 +188,4 @@ def read_root():
 
 
 if __name__ == "__main__":
-    uvicorn.run("tariF.py: app")
+    uvicorn.run("main.py: app")

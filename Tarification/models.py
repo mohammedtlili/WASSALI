@@ -3,12 +3,13 @@ from sqlalchemy.orm import relationship
 
 from enum import Enum
 from typing import Optional
+from database import Base
 """
 Importer Basedepuis database
 Créez des classes qui en héritent, 
 Ces classes sont les modèles SQLAlchemy
 """
-from database import Base
+
 
 
 

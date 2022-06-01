@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 #Création d'une URL de base de données pour SQLAlchemy
-SQLALCHEMY_DATABASE_URL = "sqlite:///./tarif.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./Tarification.db"
 
 # Créer le SQLAlchemyengine: consiste à créer un "moteur" SQLAlchemy.
 engine = create_engine(
@@ -17,6 +17,6 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 #SessionLocal2 = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-# Créer une Baseclasse:,
+# Créer une Baseclasse:
 # Nous allons maintenant utiliser la fonction declarative_base()qui renvoie une classe.
 Base = declarative_base()

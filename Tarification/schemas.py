@@ -1,14 +1,27 @@
 from enum import Enum
-
 from pydantic import BaseModel
 
-
-class Marchandise(BaseModel):
+"""
+Création des modèles Pydantic (schémas) qui seront utilisés lors de la lecture des données,
+lors de leur retour depuis l'API
+Créer des modèles /schémas Pydantic pour la creation/l'entrée
+"""
+class MarchandiseBase(BaseModel):
     nbre_objet: int
-    label: str
+    label: str | None = None
+
+
+class MarchandiseCreate(MarchandiseBase):
+    pass
+
+#Créer des modèles /schémas Pydantic pour la lecture/le retour
+class Marchandise(MarchandiseBase):
+    id_marchandise: int
+
+    class Config:     #Pydantic orm_modedira au modèle Pydantic de lire les données même si ce n'est pas un dict
+        orm_mode = True
 
 class Categorie_vihecule(str, Enum):
-
     utilitaire = "Utilitaire"
     camionnette = "Camionnette"
     fourgon = "Fourgon"
@@ -19,3 +32,19 @@ class Transport(BaseModel):
     Nombre_km: float
     temps_service: int
     prix: float
+
+class TransportBase(BaseModel):
+    Nombre_km: float
+    temps_service: int
+    prix: float  | None = None
+
+
+class TransportCreate(TransportBase):
+    pass
+
+
+class Transport(TransportBase):
+    id_transport: int
+
+    class Config:
+        orm_mode = True
