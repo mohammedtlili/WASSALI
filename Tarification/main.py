@@ -37,8 +37,9 @@ def get_db():
 
 @app.post("/transporter/", response_model=schemas.Marchandise)
 def create_marchandise(marchandise: schemas.MarchandiseCreate, db: Session = Depends(get_db)):
-    db_marchandise = crud.get_marchandise(db, nbre_objet=marchandise.nbre_objet, label=marchandise.label)
-    if db_marchandise:
+    if db_marchandise := crud.get_marchandise(
+        db, nbre_objet=marchandise.nbre_objet, label=marchandise.label
+    ):
         raise  HTTPException(status_code=400, detail="verifier les infos ")
     return crud.create_marchandise(db=db, marchandise=marchandise)
 
