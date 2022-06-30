@@ -1,19 +1,20 @@
 from fastapi import Depends
 from sqlalchemy.orm import Session
 
-from main import get_db
-from . import models, schemas
+
+
+import models, schemas, main
 
 
 def get_marchandise(db: Session, id_marchandise: int):
     return db.query(models.Marchandise).filter(models.Marchandise.id == id_marchandise).first()
 
-def read_all_marchandise(db: Session = Depends(get_db)):
+def read_all_marchandise(db: Session = Depends(main.get_db)):
     return db.query(models.Marchandise).all()
 
 
 
-def create_marchandise(db: Session, marchandise: schemas.MarchandiseCreate):
+def create_marchandise(db: Session, marchandise: schemas.MarchandiseCreate()):
     db_marchandise = models.Marchandise(nbre_objet=marchandise.nbre_objet, label=marchandise.label)
     db.add(db_marchandise)
     db.commit()

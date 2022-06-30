@@ -18,7 +18,7 @@ class Marchandise(Base):
     id_marchandise = Column(Integer, primary_key=True, index=True)
     nbre_objet = Column(Integer)
     label = Column(String)
-    #categorie_vihecule = relationship("Categorie_vihecule", back_populates="Categ_vihecule")
+    categorie_vihecule = relationship("Categorie_vihecule", back_populates="Categorie_vihecule")
 
 """"
 class Categorie_vihecule(Base):

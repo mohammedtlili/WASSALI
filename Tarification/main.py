@@ -1,61 +1,49 @@
-from typing import Union
-from fastapi.encoders import jsonable_encoder
-#from pydantic import Optional
-from typing import Optional
-from enum import Enum
-
 import uvicorn
-from fastapi import FastAPI, HTTPException, Depends, Body
-from pydantic import BaseModel
+from fastapi import FastAPI
 
-from models import*
-import crud, models, schemas
-
+import models
+from controllers.routes import router
 from database import engine, SessionLocal
-from sqlalchemy.orm import Session
-models.Base.metadata.create_all(bind=engine)
 
-
+# models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+app.include_router(router)
 
 
 # Dependency
-def get_db():
-    try:
-        db = SessionLocal()
-        yield db
-    finally:
-        db.close()
+# async def get_db():
+#     db = SessionLocal()
+#     try:
+#         yield db
+#     finally:
+#         db.close()
 
 
-#****************************************************************************************
+# ****************************************************************************************
 
-
-
-
-
-@app.post("/transporter/", response_model=schemas.Marchandise)
-def create_marchandise(marchandise: schemas.MarchandiseCreate, db: Session = Depends(get_db)):
-    db_marchandise = crud.get_marchandise(db, nbre_objet=marchandise.nbre_objet, label=marchandise.label)
-    if db_marchandise:
-        raise  HTTPException(status_code=400, detail="verifier les infos ")
-    return crud.create_marchandise(db=db, marchandise=marchandise)
-
-
-@app.get("/transporter/")
-def read_all_marchandise(db: Session = Depends(get_db)):
-    return db.query(models.Marchandise).all()
-
-
-
-@app.get("/transporter/{id_marchandise}")
-def read_marchandise_by_id(db: Session, id_marchandise: int):
-    try:
-        return db.query(models.Marchandise).filter(models.Marchandise.id == id_marchandise).first()
-
-    except:
-        raise HTTPException(status_code=404, detail="Marchandise n'existe pas")
+#
+# @app.post("/transporter/", response_model=schemas.Marchandise)
+# def create_marchandise(marchandise: schemas.MarchandiseCreate, db: Session = Depends(get_db)):
+#     db_marchandise = crud.get_marchandise(db, nbre_objet=marchandise.nbre_objet, label=marchandise.label)
+#     if db_marchandise:
+#         raise HTTPException(status_code=400, detail="verifier les infos ")
+#     return crud.create_marchandise(db=db, marchandise=marchandise)
+#
+#
+# @app.get("/transporter/")
+# def read_all_marchandise(db: Session = Depends(get_db)):
+#     return db.query(models.Marchandise).all()
+#
+#
+# @app.get("/transporter/{id_marchandise}")
+# def read_marchandise_by_id(db: Session, id_marchandise: int):
+#     try:
+#         return db.query(models.Marchandise).filter(models.Marchandise.id == id_marchandise).first()
+#
+#     except:
+#         raise HTTPException(status_code=404, detail="Marchandise n'existe pas")
+#
 
 """
 @app.put("/transporter/{id_marchandise}")
@@ -181,11 +169,13 @@ def update_transport_by_id(id_transport: int, new_transport: Transport):
         raise HTTPException(status_code=404, detail="Transport n'existe pas")
 
 """
-#******************************************************************************************
+
+
+# ******************************************************************************************
 @app.get("/")
 def read_root():
     return {"application de tarification": "phase de test "}
 
 
 if __name__ == "__main__":
-    uvicorn.run("main.py: app")
+    uvicorn.run("main:app", host="localhost", port=8000, reload=True, log_level="info")

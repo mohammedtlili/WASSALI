@@ -1,0 +1,7 @@
+click
+#fastapi
+hll
+pydantic
+starlette
+typing-extensions
+uvicorn
