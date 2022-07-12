@@ -7,7 +7,7 @@ router = APIRouter()
 
 
 @router.get("/hello")
-def read_marchandise_by_id():
+def hello():
     return "hello"
 
 

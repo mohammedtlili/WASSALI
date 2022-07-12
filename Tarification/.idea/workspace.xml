@@ -2,22 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="130e6443-9e78-482a-acd7-a94e2bb9c359" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/routes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/input_model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service/tarification.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_05_2022_13_03_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_05_2022_13_03__Changes_.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/configuration/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/configuration/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/database.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crud.py" beforeDir="false" afterPath="$PROJECT_DIR$/crud.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tarif.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/input_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/input_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/tarification.py" beforeDir="false" afterPath="$PROJECT_DIR$/service/tarification.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +24,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Blank Requirements File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -42,11 +39,11 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Dockerfile" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/configuration/config.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/controllers/routes.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/crud.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/database.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/database/database.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/main.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/models.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/models/input_model.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/requirements.txt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/schemas.py" root0="FORCE_HIGHLIGHTING" />
@@ -72,7 +69,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Desktop/WASSALI/code/WASSALI/Tarification/main.py&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Desktop/WASSALI/code/WASSALI/Tarification&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -173,7 +170,14 @@
       <workItem from="1656421711646" duration="990000" />
       <workItem from="1656468821721" duration="3059000" />
       <workItem from="1656514264593" duration="6258000" />
-      <workItem from="1656569193295" duration="859000" />
+      <workItem from="1656569193295" duration="4038000" />
+      <workItem from="1656767789451" duration="2509000" />
+      <workItem from="1656858143468" duration="7328000" />
+      <workItem from="1657000772573" duration="584000" />
+      <workItem from="1657021870829" duration="1593000" />
+      <workItem from="1657103965310" duration="1564000" />
+      <workItem from="1657569137040" duration="1296000" />
+      <workItem from="1657645205905" duration="1136000" />
     </task>
     <servers />
   </component>

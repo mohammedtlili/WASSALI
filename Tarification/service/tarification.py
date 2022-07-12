@@ -1,5 +1,42 @@
 from models.input_model import Transport, Marchandise, Categorie
+from fastapi import Depends
+from sqlalchemy.orm import Session
+from database.database import engine, SessionLocal
+import models
 
+
+
+# *********************************************
+models.Base.metadata.create_all(bind=engine)
+
+
+def get_db():
+    try:
+        db = SessionLocal()
+        yield db
+    finally:
+        db.close()
+
+# *****************************************************
+
+Transport = []
+
+def read_api(db: Session = Depends(get_db)):
+    return db.query(models.Transport).all()
+# *****************************************************
+
+def create_Transport(Transport: Transport, db: Session = Depends(get_db)):
+
+    Transport_model = models.Transport()
+    Transport_model.nmbre_km = Transport.nmbre_km
+    Transport_model.temps_service = Transport.temps_service
+    Transport_model.categorie = Transport.categorie
+    Transport_model.prix = Transport.prix
+
+    db.add(Transport_model)
+    db.commit()
+
+    return Transport
 
 def calcul(request_input: Transport) -> Marchandise:
     # prix = 0
@@ -23,4 +60,10 @@ def calcul(request_input: Transport) -> Marchandise:
     interval_prix = Marchandise(prix_min=prix_min, prix_max=prix)
 
     return interval_prix
+
+# **********************************************************
+
+#
+# def read_all_marchandise(db: Session = Depends(), marchandise: Marchandise):
+#     return db.query(input_models.Marchandise).all()
 

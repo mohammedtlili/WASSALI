@@ -1,5 +1,4 @@
-
-uvicorn
-enum
-pydantic
-models
+fastapi~=0.78.0
+uvicorn~=0.17.6
+pydantic~=1.9.1
+sqlalchemy~=1.4.39

@@ -1,7 +1,19 @@
-FROM python:3.10
-ADD main.py .
-RUN pip install requests beautifulsoup4
+FROM bitnami/python:3.10 as builder
+ENV PATH="/app/.venv/bin:${PATH}"
+WORKDIR /app
+RUN mkdir tmp
+RUN python -m venv .venv
+RUN /app/.venv/bin/python3 -m pip install --upgrade pip
+COPY requirements.txt /app
 
+COPY . /app
+RUN  python3 -m pip install -r requirements.txt
 
-RUN pip install -r requirements.txt
-CMD ["python", "-m", "unittest", "discover", "-s" ,"Tests"]
+FROM bitnami/python:3.10-prod
+ENV PATH="/app/.venv/bin:${PATH}"
+WORKDIR /app
+
+COPY --from=builder /app /app
+
+EXPOSE 8000
+CMD ["python","main.py"]
